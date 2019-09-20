@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import TodoItems from './TodoItems'
-
+import TodoItems from './TodoItems';
+import auth from "./auth";
 import "./TodoList.css";
 
 class TodoList extends Component {
@@ -48,6 +48,14 @@ deleteItem(key) {
     render() {
         return (
             <div className="todoListMain">
+                <div className="Navbar">
+                    <button
+                     onClick ={() => {
+                        auth.logout(() => {
+                            this.props.history.push("/");
+                        })
+                    }}>LogOut</button>
+                </div>
                 <div className="header">
                     <form onSubmit={this.addItem}>
                         <input ref={(a) => this._inputElement = a}
@@ -55,6 +63,7 @@ deleteItem(key) {
                         </input>
                         <button type="submit">Add</button>
                     </form>
+                    
                 </div>
                 <TodoItems entries = {this.state.items}
                            delete = {this.deleteItem}/>
